@@ -18,10 +18,16 @@ const GetPoolPrice = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Pool price data</h2>
-      <p>Price: {data.price}</p>
-      <p>Decimal Adjustment Factor: {data.decimalAdjFactor}</p>
+    <div className="flex flex-col items-center justify-center h-screen bg-[#240750] text-white">
+      <h2 className="mb-6 text-2xl font-bold">Pool price data</h2>
+      <p className="mb-4">
+        Price:{" "}
+        <span className="text-cyan-500 font-bold">{data.price}</span>
+      </p>
+      <p className="mb-4">
+        Decimal Adjustment Factor:{" "}
+        <span className="text-cyan-500 font-bold">{data.decimalAdjFactor}</span>
+      </p>
     </div>
   );
 };

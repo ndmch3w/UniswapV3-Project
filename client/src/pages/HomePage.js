@@ -1,23 +1,15 @@
+// src/pages/HomePage.js
 import React from 'react';
-import { Link, Navigate, Routes, Route, useLocation } from 'react-router-dom';
-import GetPoolPrice from './GetPoolPrice.js';
-import SwapExactInput from './SwapExactInput.js';
-import SwapExactOutput from './SwapExactOutput.js';
+import Button from '../components/Button'; // Import the Button component
 
 const HomePage = () => {
   return (
-    <div>
-      <h2>Select an API:</h2>
-      <div className="button-container">
-        <Link to="/get-pool-price">
-          <button className="api-button">Get time-weighted pool price</button>
-        </Link>
-        <Link to="/swap-exact-input">
-          <button className="api-button">Swap exact input</button>
-        </Link>
-        <Link to="/swap-exact-output">
-          <button className="api-button">Swap exact output</button>
-        </Link>
+    <div className="flex flex-col items-center justify-center h-screen bg-blue-950 text-white">
+      <h2 className="mb-6 text-2xl font-bold">Select an API:</h2>
+      <div className="flex flex-col gap-4 w-64"> {/* Set a fixed width for buttons container */}
+        <Button to="/get-pool-price">Get time-weighted pool price</Button>
+        <Button to="/swap-exact-input">Swap exact input</Button>
+        <Button to="/swap-exact-output">Swap exact output</Button>
       </div>
     </div>
   );
