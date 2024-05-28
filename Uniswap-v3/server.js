@@ -71,7 +71,7 @@ app.post('/api/v1/swap-exact-input', async (req, res) => {
 
     // Convert amounts to Wei and ERC20 decimals
     const amountIn = ethers.utils.parseEther(req.body.amountIn.toString()); // Convert Ether to Wei
-    const amountOutMin = ethers.utils.parseEther(req.body.amountOutMin.toString()); // Convert DAI to smallest unit
+    const amountOutMin = ethers.utils.parseEther(req.body.amountOutMin.toString()); // Convert LINK to smallest unit
 
     // Perform the swap
     await weth.deposit({
@@ -111,15 +111,17 @@ app.post('/api/v1/swap-exact-output', async (req, res) => {
     console.log(await link.balanceOf(accounts[0].address));
     console.log(await weth.balanceOf(accounts[0].address));
 
-    const amountOut = BigNumber.from(req.body.amountOut);
-    const amountInMax = BigNumber.from(req.body.amountInMax);
+    const amountOut = ethers.utils.parseEther(req.body.amountOut.toString()); // Convert LINK to Wei
+    const amountInMax = ethers.utils.parseEther(req.body.amountInMax.toString()); // Convert WETH to smallest unit
 
     // Perform the swap
     await weth.deposit({
       value: amountInMax
     });
     await weth.approve(uniswapV3MultiHopSwap.address, amountInMax);
-    const tx = await uniswapV3MultiHopSwap.swapExactInputMultiHop(amountOut, amountInMax);
+    const tx = await uniswapV3MultiHopSwap.swapExactInputMultiHop(amountOut, amountInMax, {
+      gasLimit: ethers.utils.hexlify(300000) // Manually specify gas limit
+    });
     const txreceipt = await tx.wait();
 
     console.log(await link.balanceOf(accounts[0].address));
