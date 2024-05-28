@@ -17,7 +17,7 @@ contract UniswapV3Oracle {
         IUniswapV3Pool uniswapv3Pool = IUniswapV3Pool(uniswapV3PoolAddress);
 
         uint32[] memory secondAgos = new uint32[](2);
-        secondAgos[0] = 10000;
+        secondAgos[0] = 100; // Max: 4,294,967,295
         secondAgos[1] = 0;
 
         (int56[] memory tickCumulatives, ) = uniswapv3Pool.observe(secondAgos);

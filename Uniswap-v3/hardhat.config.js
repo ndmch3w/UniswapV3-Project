@@ -28,6 +28,10 @@ module.exports = {
           url: process.env.ALCHEMY_URL,
       },
       gas: "auto"
-  },
+    },
+    sepolia: {
+      url: `https://eth-sepolia.g.alchemy.com/v2/${process.env.SEPOLIA_ALCHEMY_API_KEY}`,
+      accounts: [process.env.SEPOLIA_ACCOUNT_PRIVATE_KEY]
+    }
   },
 }

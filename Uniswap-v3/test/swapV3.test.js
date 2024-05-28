@@ -19,6 +19,12 @@ describe("UniswapV3", function () {
       dai = await ethers.getContractAt("contracts/interfaces/IERC20.sol:IERC20", DAI);
       weth = await ethers.getContractAt("IWETH", WETH);
 
+      for(let i=0; i<10; i++){
+		  	console.log(accounts[i].address.toString())
+		  	console.log(await dai.balanceOf(accounts[i].address));
+		  	console.log(await weth.balanceOf(accounts[i].address));
+		  }
+
       const UniswapV3SingleHopSwap = await ethers.getContractFactory(
         "UniswapV3SingleHopSwap"
       );
@@ -69,6 +75,12 @@ describe("UniswapV3", function () {
 
       dai = await ethers.getContractAt("contracts/interfaces/IERC20.sol:IERC20", DAI);
       weth = await ethers.getContractAt("IWETH", WETH);
+
+      for(let i=0; i<10; i++){
+		  	console.log(accounts[i].address.toString())
+		  	console.log(await dai.balanceOf(accounts[i].address));
+		  	console.log(await weth.balanceOf(accounts[i].address));
+		  }
 
       const UniswapV3MultiHopSwap = await ethers.getContractFactory(
         "UniswapV3MultiHopSwap"

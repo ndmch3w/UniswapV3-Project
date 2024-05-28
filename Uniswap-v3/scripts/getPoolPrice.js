@@ -1,7 +1,7 @@
 const hre = require("hardhat");
 
 async function main() {
-    const pool_address = "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640"; //0xcbcdf9626bc03e24f779434178a73a0b4bad62ed
+    const pool_address = "0x3a41a6d24d9963ea63c5f858a25bc1a8175c7d72"; //0xcbcdf9626bc03e24f779434178a73a0b4bad62ed
 
     //Deploy
     const Oracle = await hre.ethers.getContractFactory("UniswapV3Oracle");
@@ -21,7 +21,7 @@ async function main() {
 
     //Price WBTC
     const result = price / decimals;
-    console.log("Price of WBTC/WETH: ", result);
+    console.log("Price of USDC/WETH: ", result);
     
 }
 
