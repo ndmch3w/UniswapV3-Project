@@ -34,7 +34,7 @@ async function loadContracts() {
 	weth = await ethers.getContractAt("IWETH", WETH, wallet);
 
 	// Use the existing contract address
-	const existingContractAddress = process.env.MULTIHOP_CONTRACT_ADDR_NODEADLINE;
+	const existingContractAddress = process.env.MULTIHOP_CONTRACT_ADDR_NEWROUTER;
 	uniswapV3MultiHopSwap = await ethers.getContractAt("UniswapV3MultiHopSwap", existingContractAddress, wallet);
 
 	accounts = [wallet];
@@ -45,7 +45,7 @@ app.get('/api/v1/get-pool-price', async (req, res) => {
     const contractABI = require('../Uniswap-v3/artifacts/contracts/UniswapV3Oracle.sol/UniswapV3Oracle.json').abi;
     const contractAddress = process.env.ORACLE_CONTRACT_ADDR;
 
-    const provider = new ethers.providers.JsonRpcProvider(`https://eth-sepolia.g.alchemy.com/v2/${process.env.SEPOLIA_ALCHEMY_API_KEY}`);
+    const provider = new ethers.providers.JsonRpcProvider(`${process.env.INFURA_URL}`);
     const contract = new ethers.Contract(contractAddress, contractABI, provider);
 
     const result = await contract.getPrice();
