@@ -10,7 +10,7 @@ contract UniswapV3MultiHopSwap {
     // ISwapRouter private constant router =
     //     ISwapRouter(0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD);
     ISwapRouter private constant router =
-        ISwapRouter(0xE592427A0AEce92De3Edee1F18E0157C05861564);
+        ISwapRouter(0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD);
 
     // address private constant WETH = 0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14;
     // address private constant USDC = 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48;
@@ -36,7 +36,7 @@ contract UniswapV3MultiHopSwap {
             .ExactInputParams({
                 path: path,
                 recipient: msg.sender,
-                deadline: block.timestamp + 15, // 15 second deadlin
+                deadline: block.timestamp, // 60 second deadline
                 amountIn: amountIn,
                 amountOutMinimum: amountOutMin
             });

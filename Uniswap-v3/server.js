@@ -1,3 +1,6 @@
+//import "@ethersproject/shims"
+//import { ethers } from "ethers";
+
 require('dotenv').config();
 const express = require('express');
 const { ethers } = require('hardhat');
@@ -31,7 +34,7 @@ async function loadContracts() {
 	weth = await ethers.getContractAt("IWETH", WETH, wallet);
 
 	// Use the existing contract address
-	const existingContractAddress = process.env.MULTIHOP_CONTRACT_ADDR;
+	const existingContractAddress = process.env.MULTIHOP_CONTRACT_ADDR_NODEADLINE;
 	uniswapV3MultiHopSwap = await ethers.getContractAt("UniswapV3MultiHopSwap", existingContractAddress, wallet);
 
 	accounts = [wallet];
@@ -66,12 +69,13 @@ app.post('/api/v1/swap-exact-input', async (req, res) => {
   try {
     await loadContracts();
     
+    console.log(accounts[0].address)
     console.log(await link.balanceOf(accounts[0].address));
     console.log(await weth.balanceOf(accounts[0].address));
 
     // Convert amounts to Wei and ERC20 decimals
-    const amountIn = ethers.utils.parseEther(req.body.amountIn.toString()); // Convert Ether to Wei
-    const amountOutMin = ethers.utils.parseEther(req.body.amountOutMin.toString()); // Convert LINK to smallest unit
+    const amountIn = ethers.utils.parseEther("0.005"); // Convert Ether to Wei req.body.amountIn.toString()
+    const amountOutMin = ethers.utils.parseEther("0.0002"); // Convert LINK to smallest unit req.body.amountOutMin.toString()
 
     // Perform the swap
     await weth.deposit({
@@ -80,7 +84,7 @@ app.post('/api/v1/swap-exact-input', async (req, res) => {
     await weth.approve(uniswapV3MultiHopSwap.address, amountIn);
 
     const tx = await uniswapV3MultiHopSwap.swapExactInputMultiHop(amountIn, amountOutMin, {
-      gasLimit: ethers.utils.hexlify(300000) // Manually specify gas limit
+      gasLimit: ethers.utils.hexlify(10000000) // Manually specify gas limit
     });
     const txreceipt = await tx.wait();
 
@@ -119,8 +123,8 @@ app.post('/api/v1/swap-exact-output', async (req, res) => {
       value: amountInMax
     });
     await weth.approve(uniswapV3MultiHopSwap.address, amountInMax);
-    const tx = await uniswapV3MultiHopSwap.swapExactInputMultiHop(amountOut, amountInMax, {
-      gasLimit: ethers.utils.hexlify(300000) // Manually specify gas limit
+    const tx = await uniswapV3MultiHopSwap.swapExactOutputMultiHop(amountOut, amountInMax, {
+      gasLimit: ethers.utils.hexlify(10000000) // Manually specify gas limit
     });
     const txreceipt = await tx.wait();
 

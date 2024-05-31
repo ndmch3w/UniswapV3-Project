@@ -7,8 +7,17 @@ async function main() {
 
     // Deploy the SwapExamples contract
     const SwapExamples = await hre.ethers.getContractFactory("UniswapV3MultiHopSwap");
-    const swapExamples = await SwapExamples.deploy();
+    
+    // Fetch current gas price
+    const gasPrice = await hre.ethers.provider.getGasPrice();
+    const higherGasPrice = gasPrice.mul(110).div(100); // Increase gas price by 10%
+
+    // Deploy the contract with increased gas price
     console.log("Deploying SwapExamples contract...");
+    const swapExamples = await SwapExamples.deploy({
+        gasLimit: hre.ethers.utils.hexlify(2000000), // Adjust gas limit as needed
+        maxFeePerGas: higherGasPrice, // EIP-1559 compatible transaction field
+    });
 
     // Wait for deployment to be successful
     await swapExamples.deployed();
