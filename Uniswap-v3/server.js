@@ -34,7 +34,7 @@ async function loadContracts() {
 	weth = await ethers.getContractAt("IWETH", WETH, wallet);
 
 	// Use the existing contract address
-	const existingContractAddress = process.env.MULTIHOP_CONTRACT_ADDR_NODEADLINE;
+	const existingContractAddress = process.env.MULTIHOP_CONTRACT_ADDR_NEWROUTER;
 	uniswapV3MultiHopSwap = await ethers.getContractAt("UniswapV3MultiHopSwap", existingContractAddress, wallet);
 
 	accounts = [wallet];
