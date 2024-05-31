@@ -27,7 +27,7 @@ const LINK = "0x779877A7B0D9E8603169DdbD7836e478b4624789";
 let link, weth, uniswapV3MultiHopSwap, accounts;
 
 async function loadContracts() {
-	const provider = new ethers.providers.JsonRpcProvider(`https://eth-sepolia.g.alchemy.com/v2/${process.env.SEPOLIA_ALCHEMY_API_KEY}`);
+	const provider = new ethers.providers.JsonRpcProvider(`${process.env.INFURA_URL}`);
 	const wallet = new ethers.Wallet(process.env.SEPOLIA_ACCOUNT_PRIVATE_KEY, provider);
 
 	link = await ethers.getContractAt("contracts/interfaces/IERC20.sol:IERC20", LINK, wallet);
