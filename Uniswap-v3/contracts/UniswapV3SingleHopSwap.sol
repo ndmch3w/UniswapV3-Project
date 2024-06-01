@@ -12,13 +12,13 @@ import "./interfaces/IERC20.sol";
 
 contract UniswapV3SingleHopSwap {
     ISwapRouter private constant router =
-        ISwapRouter(0xE592427A0AEce92De3Edee1F18E0157C05861564);
+        ISwapRouter(0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD);
 
-    address private constant WETH = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
-    address private constant DAI = 0x6B175474E89094C44Da98b954EedeAC495271d0F;
+    address private constant WETH = 0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14;
+    address private constant USDC = 0xa4eE9C98643403cF6555728272129c721EF4c266;
 
     IWETH private constant weth = IWETH(WETH);
-    IERC20 private constant dai = IERC20(DAI);
+    IERC20 private constant usdc = IERC20(USDC);
 
     function swapExactInputSingleHop(uint amountIn, uint amountOutMin)
         external
@@ -28,7 +28,7 @@ contract UniswapV3SingleHopSwap {
         ISwapRouter.ExactInputSingleParams memory params = ISwapRouter
             .ExactInputSingleParams({
                 tokenIn: WETH,
-                tokenOut: DAI,
+                tokenOut: USDC,
                 fee: 3000,
                 recipient: msg.sender,
                 deadline: block.timestamp,
@@ -47,7 +47,7 @@ contract UniswapV3SingleHopSwap {
         ISwapRouter.ExactOutputSingleParams memory params = ISwapRouter
             .ExactOutputSingleParams({
                 tokenIn: WETH,
-                tokenOut: DAI,
+                tokenOut: USDC,
                 fee: 3000,
                 recipient: msg.sender,
                 deadline: block.timestamp,

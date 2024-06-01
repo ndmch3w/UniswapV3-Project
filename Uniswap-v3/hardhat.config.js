@@ -25,13 +25,13 @@ module.exports = {
   networks: {
     hardhat: {
       forking: {
-          url: process.env.ALCHEMY_URL,
+          url: process.env.ALCHEMY_URL_MAINNET,
       },
       gas: "auto"
     },
     sepolia: {
-      url: `https://eth-sepolia.g.alchemy.com/v2/${process.env.SEPOLIA_ALCHEMY_API_KEY}`,
+      url: `${process.env.INFURA_URL}`,
       accounts: [process.env.SEPOLIA_ACCOUNT_PRIVATE_KEY]
-    }
+    },
   },
 }

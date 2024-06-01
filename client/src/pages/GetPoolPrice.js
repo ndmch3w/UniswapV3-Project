@@ -28,6 +28,10 @@ const GetPoolPrice = () => {
         Decimal Adjustment Factor:{" "}
         <span className="text-cyan-500 font-bold">{data.decimalAdjFactor}</span>
       </p>
+      <p className="mb-4">
+        WBTC/WETH or maybe USDC/WETH here anh Quyen chinh giup em:{" "}
+        <span className="text-cyan-500 font-bold">{data.priceInComparison}</span>
+      </p>
     </div>
   );
 };

@@ -6,22 +6,16 @@ async function main() {
     // const swapRouterAddress = process.env.SEPOLIA_SWAP_ROUTER_ADDR; // Update with the address of the SwapRouter contract
 
     // Deploy the SwapExamples contract
-    const SwapMultiHop = await hre.ethers.getContractFactory("UniswapV3MultiHopSwap");
+    const SwapSingleHop = await hre.ethers.getContractFactory("UniswapV3SingleHopSwap");
     
-    // Fetch current gas price
-    const gasPrice = await hre.ethers.provider.getGasPrice();
-    const higherGasPrice = gasPrice.mul(110).div(100); // Increase gas price by 10%
 
     // Deploy the contract with increased gas price
     console.log("Deploying SwapExamples contract...");
-    const swapMultiHop = await SwapMultiHop.deploy({
-        gasLimit: hre.ethers.utils.hexlify(2000000), // Adjust gas limit as needed
-        maxFeePerGas: higherGasPrice, // EIP-1559 compatible transaction field
-    });
+    const swapSingleHop = await SwapSingleHop.deploy();
 
     // Wait for deployment to be successful
-    await swapMultiHop.deployed();
-    console.log("SwapExamples contract deployed at address:", swapMultiHop.address);
+    await swapSingleHop.deployed();
+    console.log("SwapExamples contract deployed at address:", swapSingleHop.address);
 }
 
 main()

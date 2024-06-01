@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import Button from '../components/Button'; // Import the Button component
 import SwapButton from '../components/SwapButton';
@@ -21,6 +21,7 @@ const SwapExactInput = () => {
       setResponse(response.data);
     } catch (error) {
       console.error('Error:', error);
+      setResponse({ success: false, error: error.message });
     } finally {
       setLoading(false); // Reset loading state
     }
@@ -59,13 +60,26 @@ const SwapExactInput = () => {
           ) : null}
         </p>
         <p>
-          DAI balance after transaction:{" "}
+          LINK balance after transaction:{" "}
           {response.balance !== undefined ? (
             <span className="text-cyan-500 font-bold">
               {response.balance}
             </span>
           ) : null}
         </p>
+        <p>
+          Transaction Hash:{" "}
+          {response.transactionHash ? (
+            <span className="text-cyan-500 font-bold">
+              {response.transactionHash}
+            </span>
+          ) : null}
+        </p>
+        {response.error && (
+          <p className="text-red-500 font-bold">
+            Error: {response.error}
+          </p>
+        )}
       </div>
     </div>
   );
