@@ -25,10 +25,10 @@ contract UniswapV3Oracle {
         int56 tickCumulativesDiff = tickCumulatives[1] - tickCumulatives[0];
         uint56 period = uint56(secondAgos[0] - secondAgos[1]);
 
-        int56 timeWeightedAverageTick = tickCumulativesDiff / int56(period);
+        int56 timeWeightedAverageTick = tickCumulativesDiff / -int56(period);
 
-        uint8 decimalToken0 = IERC20Metadata(uniswapv3Pool.token0()).decimals();
-        uint8 decimalToken1 = IERC20Metadata(uniswapv3Pool.token1()).decimals();
+        uint256 decimalToken0 = IERC20Metadata(uniswapv3Pool.token0()).decimals();
+        uint256 decimalToken1 = IERC20Metadata(uniswapv3Pool.token1()).decimals();
 
         uint160 sqrtRatioX96 = TickMath.getSqrtRatioAtTick(int24(timeWeightedAverageTick));
         uint256 ratioX192 = uint256(sqrtRatioX96) * sqrtRatioX96;
