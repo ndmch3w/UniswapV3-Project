@@ -24,14 +24,18 @@ contract UniswapV3Oracle {
         int56 tickCumulativesDiff = tickCumulatives[1] - tickCumulatives[0];
         uint32 period = _seconds; // period in seconds
 
+<<<<<<< HEAD
         require(period > 0, "Period must be greater than 0");
 
         int24 timeWeightedAverageTick = int24(tickCumulativesDiff / int56(int32(period)));
         
         require(timeWeightedAverageTick >= TickMath.MIN_TICK && timeWeightedAverageTick <= TickMath.MAX_TICK, "TWAT out of bounds");
+=======
+        int56 timeWeightedAverageTick = tickCumulativesDiff / -int56(period);
+>>>>>>> fe1a07660dcdc9b8ca6d7c7758f7012bda91f1b8
 
-        uint8 decimalToken0 = IERC20Metadata(uniswapv3Pool.token0()).decimals();
-        uint8 decimalToken1 = IERC20Metadata(uniswapv3Pool.token1()).decimals();
+        uint256 decimalToken0 = IERC20Metadata(uniswapv3Pool.token0()).decimals();
+        uint256 decimalToken1 = IERC20Metadata(uniswapv3Pool.token1()).decimals();
 
         uint160 sqrtRatioX96 = TickMath.getSqrtRatioAtTick(timeWeightedAverageTick);
         uint256 ratioX192 = uint256(sqrtRatioX96) * sqrtRatioX96;
