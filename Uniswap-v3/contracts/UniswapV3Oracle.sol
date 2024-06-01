@@ -7,7 +7,6 @@ import "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 
 contract UniswapV3Oracle {
     address private uniswapV3PoolAddress;
-    uint24 private twapDurationInSeconds;
 
     constructor(address pool) {
         uniswapV3PoolAddress = pool;
@@ -23,14 +22,18 @@ contract UniswapV3Oracle {
         (int56[] memory tickCumulatives, ) = uniswapv3Pool.observe(secondAgos);
 
         int56 tickCumulativesDiff = tickCumulatives[1] - tickCumulatives[0];
-        uint56 period = uint56(secondAgos[0] - secondAgos[1]);
+        uint32 period = _seconds; // period in seconds
 
-        int56 timeWeightedAverageTick = tickCumulativesDiff / int56(period);
+        require(period > 0, "Period must be greater than 0");
+
+        int24 timeWeightedAverageTick = int24(tickCumulativesDiff / int56(int32(period)));
+        
+        require(timeWeightedAverageTick >= TickMath.MIN_TICK && timeWeightedAverageTick <= TickMath.MAX_TICK, "TWAT out of bounds");
 
         uint8 decimalToken0 = IERC20Metadata(uniswapv3Pool.token0()).decimals();
         uint8 decimalToken1 = IERC20Metadata(uniswapv3Pool.token1()).decimals();
 
-        uint160 sqrtRatioX96 = TickMath.getSqrtRatioAtTick(int24(timeWeightedAverageTick));
+        uint160 sqrtRatioX96 = TickMath.getSqrtRatioAtTick(timeWeightedAverageTick);
         uint256 ratioX192 = uint256(sqrtRatioX96) * sqrtRatioX96;
 
         uint256 adjustedPrice = (ratioX192 * 1e18) >> (96 * 2); // Price in token1 units

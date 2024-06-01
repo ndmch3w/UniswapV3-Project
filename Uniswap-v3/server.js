@@ -59,6 +59,7 @@ app.get('/api/v1/get-pool-price', async (req, res) => {
   try {
     const contractABI = require('../Uniswap-v3/artifacts/contracts/UniswapV3Oracle.sol/UniswapV3Oracle.json').abi;
 
+    console.log('Request query:', req.query);
     // Extract from request query parameters
     const timeToChoose = req.query.time;
     const poolToChoose = req.query.pool;

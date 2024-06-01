@@ -1,7 +1,7 @@
 const hre = require("hardhat");
 
 async function main() {
-    const pool_address = "0x16ca232553d516dea346db86d4f2a495e096a7f5"; //WBTC/WETH 0x3a41a6d24d9963ea63c5f858a25bc1a8175c7d72
+    const pool_address = "0x3a41a6d24d9963ea63c5f858a25bc1a8175c7d72"; //WBTC/WETH 0x3a41a6d24d9963ea63c5f858a25bc1a8175c7d72  //USDC/WETH 0x16ca232553d516dea346db86d4f2a495e096a7f5
 
     //Deploy
     const Oracle = await hre.ethers.getContractFactory("UniswapV3Oracle");
