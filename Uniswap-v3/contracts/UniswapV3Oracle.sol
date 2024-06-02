@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import "@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
-import '@uniswap/v3-core/contracts/libraries/TickMath.sol';
+import "@uniswap/v3-core/contracts/libraries/TickMath.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 
 contract UniswapV3Oracle {
@@ -33,9 +33,14 @@ contract UniswapV3Oracle {
 
         uint160 sqrtRatioX96 = TickMath.getSqrtRatioAtTick(int24(timeWeightedAverageTick));
         uint256 ratioX192 = uint256(sqrtRatioX96) * sqrtRatioX96;
+        uint256 adjustedPrice;  // Price in token1 units
 
-        uint256 adjustedPrice = (ratioX192 * 1e18) >> (96 * 2); // Price in token1 units
-        
+        if (ratioX192 >= 1e59){
+            adjustedPrice = (ratioX192 / (1 << (96 * 2))) * 1e18; 
+        } else {
+            adjustedPrice = (ratioX192 * 1e18) >> (96 * 2);
+        }
+
         decimalAdjFactor = 10**(decimalToken0);
 
         // Adjust the price based on the decimals difference between the two tokens

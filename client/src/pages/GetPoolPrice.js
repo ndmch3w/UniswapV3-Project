@@ -13,8 +13,13 @@ const pools = [
 ]
 
 const time = [
+  { id: 0, name: '60', display: '1m' },
   { id: 1, name: '100', display: '100s' },
-  { id: 2, name: '3600', display: '1h' },
+  { id: 2, name: '120', display: '2m'},
+  { id: 3, name: '300', display: '5m' },
+  { id: 4, name: '600', display: '10m'},
+  { id: 5, name: '1800', display: '30m' },
+  { id: 6, name: '3600', display: '1h' },
 ]
 
 
@@ -70,6 +75,11 @@ const GetPoolPrice = () => {
       : pools.filter((pool) => {
         return pool.name.toLowerCase().includes(query.toLowerCase())
       })
+
+  function formatPoolName(poolName) {
+    const len = poolName.length;
+    return poolName.slice(0, len - 4) + '/' + poolName.slice(len - 4, len);
+  }
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-sky-300 to-indigo-500" style={{ backgroundImage:  `url(${background})`, backgroundSize: 'cover'  }}>
@@ -135,7 +145,7 @@ const GetPoolPrice = () => {
             <p className="mb-4">
               <p>
                 Price in comparison:{" "}
-                <span className='font-bold'>{choicedPool === 'WBTCWETH' ? 'WBTC/WETH' : 'USDC/WETH'}</span>
+                <span className='font-bold'>{formatPoolName(choicedPool)}</span>
               </p>
               <span className="text-cyan-500 font-bold">{data.priceInComparison}</span>
             </p>
