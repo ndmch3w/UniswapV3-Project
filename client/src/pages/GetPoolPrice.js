@@ -9,6 +9,7 @@ import background from '../assets/bg-pic.jpg'; // Import the background image
 const pools = [
   { id: 1, name: 'WBTCWETH' },
   { id: 2, name: 'USDCWETH' },
+  { id: 3, name: 'LINKWETH'}
 ]
 
 const time = [

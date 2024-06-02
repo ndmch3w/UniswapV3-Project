@@ -22,7 +22,10 @@ async function main() {
     price = Number(price.toString());
     decimals = Number(decimals.toString());
 
-    //Price WBTC
+    console.log(price);
+    console.log(decimals);
+
+    //Price USDC
     const result = price / decimals;
     console.log("Price of USDC/WETH: ", result);
     

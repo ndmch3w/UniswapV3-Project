@@ -52,9 +52,22 @@ const SwapExactOutput = () => {
             ) : null}
           </p>
           <p>
-            DAI balance after transaction:
+            LINK balance after transaction:
             {response.balance}
           </p>
+          <p>
+            Transaction Hash:{" "}
+            {response.transactionHash ? (
+              <span className="text-cyan-500 font-bold">
+                {response.transactionHash}
+              </span>
+            ) : null}
+          </p>
+          {response.error && (
+            <p className="text-red-500 font-bold">
+              Error: {response.error}
+            </p>
+          )}
         </div>
 
         <p className="w-full flex flex-col gap-4">
