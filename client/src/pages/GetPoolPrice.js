@@ -135,7 +135,9 @@ const GetPoolPrice = () => {
             <p className="mb-4">
               <p>
                 Price in comparison:{" "}
-                <span className='font-bold'>{choicedPool === 'WBTCWETH' ? 'WBTC/WETH' : 'USDC/WETH'}</span>
+                <span className='font-bold'>{choicedPool === 'WBTCWETH' ? 'WBTC/WETH' : 
+                   choicedPool === 'USDCWETH' ? 'USDC/WETH' : 
+                   'LINK/WETH'}</span>
               </p>
               <span className="text-cyan-500 font-bold">{data.priceInComparison}</span>
             </p>
